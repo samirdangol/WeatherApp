@@ -1,5 +1,5 @@
-﻿using Weather.DataAccess.Model;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Weather.Domain;
 
 namespace Weather.DataAccess
 {

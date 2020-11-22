@@ -6,9 +6,9 @@ using System;
 using Weather.DataAccess;
 using Weather.Services;
 
-[assembly: FunctionsStartup(typeof(FunctionApp1.Startup))]
+[assembly: FunctionsStartup(typeof(WeatherApp.Startup))]
 
-namespace FunctionApp1
+namespace WeatherApp
 {
     class Startup: FunctionsStartup
     {
@@ -21,12 +21,15 @@ namespace FunctionApp1
                 .Build();
 
             builder.Services.AddHttpClient();
+            builder.Services.AddLogging();
             builder.Services.AddTransient<IDataService, DataService>();
             builder.Services.AddTransient<IOpenWeatherMapService, OpenWeatherMapService>();
 
             string SqlConnection = config.GetConnectionStringOrSetting("SqlConnectionString");
             builder.Services.AddDbContext<WeatherContext>(
                 options => options.UseSqlServer(SqlConnection));
+
+            
         }
 
         

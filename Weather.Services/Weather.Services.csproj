@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Weather.DataAccess\Weather.DataAccess.csproj" />
+    <ProjectReference Include="..\Weather.Domain\Weather.Domain.csproj" />
   </ItemGroup>
 
 </Project>

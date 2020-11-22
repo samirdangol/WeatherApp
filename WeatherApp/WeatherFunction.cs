@@ -28,7 +28,7 @@ namespace WeatherApp
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("asdf");
+            log.LogInformation("Starting function...");
 
             // Read request 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -42,13 +42,15 @@ namespace WeatherApp
                 }
             }
            
-            // Fetch Data from Weather API
+            // Fetch Data from open weather map api
             await _weatherMapService.GetWeatherData();
 
             // Insert into Database
             await _dataService.InsertWeatherData();
+
+            var response = await _dataService.ReadWeatherData();
             
-            return new OkObjectResult(responseMessage);
+            return new OkObjectResult(response);
         }
     }
 }
