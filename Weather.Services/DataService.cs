@@ -18,23 +18,31 @@ namespace Weather.Services
             _logger = logger;
         }
 
-        public async Task InsertWeatherData()
+        public async Task InsertWeatherData(List<ZipCodeWeather> weathers)
         {
-            var weather = new ZipCodeWeather();
-            await _context.ZipCodeWeather.AddAsync(weather);
+            _logger.LogInformation("Insert Weather Data...");
+            foreach (var weather in weathers)
+            {
+                await _context.ZipCodeWeather.AddAsync(weather);
+            }
             await _context.SaveChangesAsync();
         }
 
         public async Task<WeatherDataResponse> ReadWeatherData()
         {
+            _logger.LogInformation("Read Weather Data...");
+            
             var response = new WeatherDataResponse();
+            
             var result = await _context.ZipCodeWeather.ToListAsync();
-
-            response.ZipCodeWeathers = new List<ZipCodeWeather>();
-            response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98012", Temparature = 50 });
-            response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98033", Temparature = 60 });
-            response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98006", Temparature = 70 });
+            
             response.ZipCodeWeathers = result;
+            
+            //response.ZipCodeWeathers = new List<ZipCodeWeather>();
+            //response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98012", Temparature = 50 });
+            //response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98033", Temparature = 60 });
+            //response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98006", Temparature = 70 });
+            
             return response;
             
         }

@@ -28,10 +28,6 @@ namespace WeatherApp
             string SqlConnection = config.GetConnectionStringOrSetting("SqlConnectionString");
             builder.Services.AddDbContext<WeatherContext>(
                 options => options.UseSqlServer(SqlConnection));
-
-            
         }
-
-        
     }
 }

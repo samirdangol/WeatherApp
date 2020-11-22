@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Weather.DataAccess\Weather.DataAccess.csproj" />
     <ProjectReference Include="..\Weather.Domain\Weather.Domain.csproj" />
   </ItemGroup>

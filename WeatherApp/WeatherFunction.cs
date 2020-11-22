@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Weather.Domain;
 using Weather.Services;
 
 namespace WeatherApp
@@ -33,20 +34,18 @@ namespace WeatherApp
             // Read request 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var zipCodes = JsonConvert.DeserializeObject<List<string>>(requestBody);
-            string responseMessage = string.Empty;
-            if (zipCodes != null)
-            {
-                foreach(var zip in zipCodes)
-                {
-                    responseMessage += $"{zip} ";
-                }
-            }
-           
+
+            var weathers = new List<ZipCodeWeather>();
+
             // Fetch Data from open weather map api
-            await _weatherMapService.GetWeatherData();
+            foreach (var zipCode in zipCodes)
+            {
+                var openWeatherMapResponse = await _weatherMapService.GetWeatherData(zipCode);
+                weathers.Add(new ZipCodeWeather { ZipCode = zipCode, Temparature = (int)openWeatherMapResponse.Main.Temp });
+            }
 
             // Insert into Database
-            await _dataService.InsertWeatherData();
+            await _dataService.InsertWeatherData(weathers);
 
             var response = await _dataService.ReadWeatherData();
             
