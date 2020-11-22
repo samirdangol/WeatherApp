@@ -26,7 +26,7 @@ namespace Weather.Services
             _logger.LogInformation("GetWeatherData from external API");
 
             //TODO: Read from Config
-            var appId = "8358673f01a549b46b006ef9858d324e";
+            var appId = "<appId>";
             
             var uriBuilder = new UriBuilder
             {
