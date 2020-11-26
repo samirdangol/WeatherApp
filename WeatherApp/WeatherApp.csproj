@@ -3,6 +3,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Migrations\**" />
@@ -26,7 +30,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Weather.Services\Weather.Services.csproj" />
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)bin\$(ProjectName).dll&quot; &quot;$(TargetDir)$(ProjectName).dll&quot;" />
-  </Target>
 </Project>

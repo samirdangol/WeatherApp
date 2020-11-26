@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Weather.DataAccess
 {
@@ -25,15 +26,15 @@ namespace Weather.DataAccess
 
         private static void LoadConnectionString()
         {
+            var basePath = Path.Combine(Environment.CurrentDirectory, @"..\WeatherApp");
+
             var config = new ConfigurationBuilder()
-                .SetBasePath(Environment.CurrentDirectory)
+                .SetBasePath(basePath)
                 .AddJsonFile("local.settings.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
 
             _connectionString = config.GetConnectionStringOrSetting("SqlConnectionString");
-
-            _connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=Weather";
         }
     }
 

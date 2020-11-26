@@ -9,8 +9,8 @@ using Weather.DataAccess;
 namespace Weather.DataAccess.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20201122052603_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201126043521_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
