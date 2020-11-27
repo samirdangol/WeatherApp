@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Weather.DataAccess;
 using Weather.Domain;
@@ -63,11 +62,6 @@ namespace Weather.Services
             var result = await _context.ZipCodeWeather.ToListAsync();
             
             response.ZipCodeWeathers = result;
-            
-            //response.ZipCodeWeathers = new List<ZipCodeWeather>();
-            //response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98012", Temparature = 50 });
-            //response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98033", Temparature = 60 });
-            //response.ZipCodeWeathers.Add(new ZipCodeWeather { ZipCode = "98006", Temparature = 70 });
             
             return response;
             
