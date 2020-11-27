@@ -3,8 +3,10 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Weather.Services.Model;
 
 namespace Weather.Services
 {
@@ -38,7 +40,8 @@ namespace Weather.Services
             var response = await _client.GetAsync(uriBuilder.Uri);
             if(!response.IsSuccessStatusCode)
             {
-                return new OpenWeatherMapResponse();
+                _logger.LogInformation("Failed to load weather data.");
+                return null;
             }
 
             var result = await response.Content.ReadAsStringAsync();
@@ -55,17 +58,5 @@ namespace Weather.Services
 
             return openWeatherMapResponse;
         }
-    }
-
-    public class OpenWeatherMapResponse
-    {
-        public Main Main { get; set; }
-        public string Name { get; set; }
-
-    }
-
-    public class Main
-    {
-        public float Temp { get; set; }
     }
 }

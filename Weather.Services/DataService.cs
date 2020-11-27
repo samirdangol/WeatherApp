@@ -18,14 +18,40 @@ namespace Weather.Services
             _logger = logger;
         }
 
-        public async Task InsertWeatherData(List<ZipCodeWeather> weathers)
+        public async Task<ZipCodeWeather> InsertWeatherData(ZipCodeWeather weather)
         {
             _logger.LogInformation("Insert Weather Data...");
-            foreach (var weather in weathers)
+
+            var result = await _context.ZipCodeWeather.FindAsync(weather.ZipCode);
+            ZipCodeWeather response;
+
+            if(result != null)
             {
-                await _context.ZipCodeWeather.AddAsync(weather);
+                // update
+                result.City = weather.City;
+                result.Country = weather.Country;
+                result.WeatherDesc = weather.WeatherDesc;
+                result.Temp = weather.Temp;
+                result.TempMin = weather.TempMin;
+                result.TempMax = weather.TempMax;
+                result.Wind = weather.Wind;
+                result.Cloud = weather.Cloud;
+                result.Pressure = weather.Pressure;
+                result.Longitude = weather.Longitude;
+                result.Latitude = weather.Latitude;
+                result.AsOfDate = weather.AsOfDate;
+                response = result;
             }
-            await _context.SaveChangesAsync();
+            else
+            {
+                // insert
+                var entityEntry = await _context.ZipCodeWeather.AddAsync(weather);
+                response = entityEntry.Entity;
+            }
+
+            var recordCount = await _context.SaveChangesAsync();
+            _logger.LogInformation($"{recordCount} records added or updated successfully.");
+            return response;
         }
 
         public async Task<WeatherDataResponse> ReadWeatherData()

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
-using System.Linq;
 
 namespace Weather.DataAccess
 {
@@ -26,11 +25,9 @@ namespace Weather.DataAccess
 
         private static void LoadConnectionString()
         {
-            var basePath = Path.Combine(Environment.CurrentDirectory, @"..\WeatherApp");
-
             var config = new ConfigurationBuilder()
-                .SetBasePath(basePath)
-                .AddJsonFile("local.settings.json", optional: true)
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("appsettings.prod.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
 

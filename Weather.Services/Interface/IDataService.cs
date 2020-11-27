@@ -6,7 +6,7 @@ namespace Weather.Services
 {
     public interface IDataService
     {
-        public Task InsertWeatherData(List<ZipCodeWeather> weathers);
+        public Task<ZipCodeWeather> InsertWeatherData(ZipCodeWeather weather);
 
         public Task<WeatherDataResponse> ReadWeatherData();
     }

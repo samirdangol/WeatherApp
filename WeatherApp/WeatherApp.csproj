@@ -4,6 +4,7 @@
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
+    <UserSecretsId>276d56de-bea9-4e92-9fea-62364abf20e4</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath></OutputPath>
@@ -14,6 +15,7 @@
     <None Remove="Migrations\**" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.15.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.10" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.7" />
