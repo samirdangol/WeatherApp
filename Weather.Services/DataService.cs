@@ -6,17 +6,30 @@ using Weather.Domain;
 
 namespace Weather.Services
 {
+    /// <summary>
+    /// Service to connect to DataAccess Repositor/DBContext
+    /// </summary>
     public class DataService : IDataService
     {
         private readonly WeatherContext _context;
         public readonly ILogger<IDataService> _logger;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="logger"></param>
         public DataService(WeatherContext context, ILogger<IDataService> logger)
         {
             _context = context;
             _logger = logger;
         }
 
+        /// <summary>
+        /// InsertWeatherData
+        /// </summary>
+        /// <param name="weather"></param>
+        /// <returns></returns>
         public async Task<ZipCodeWeather> InsertWeatherData(ZipCodeWeather weather)
         {
             _logger.LogInformation("Insert Weather Data...");
@@ -53,6 +66,10 @@ namespace Weather.Services
             return response;
         }
 
+        /// <summary>
+        /// ReadWeatherData
+        /// </summary>
+        /// <returns></returns>
         public async Task<WeatherDataResponse> ReadWeatherData()
         {
             _logger.LogInformation("Read Weather Data...");
@@ -64,7 +81,6 @@ namespace Weather.Services
             response.ZipCodeWeathers = result;
             
             return response;
-            
         }
     }
 }

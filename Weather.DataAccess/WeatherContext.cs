@@ -3,6 +3,9 @@ using Weather.Domain;
 
 namespace Weather.DataAccess
 {
+    /// <summary>
+    /// WeatherContext Class
+    /// </summary>
     public class WeatherContext: DbContext
     {
         public WeatherContext(DbContextOptions<WeatherContext> options)

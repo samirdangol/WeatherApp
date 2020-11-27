@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.IO;
 
 namespace Weather.DataAccess
 {
+    /// <summary>
+    /// WeatherContextFactory class for migration
+    /// </summary>
     public class WeatherContextFactory : IDesignTimeDbContextFactory<WeatherContext>
     {
         private static string _connectionString;

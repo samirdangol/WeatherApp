@@ -10,8 +10,15 @@ using Weather.Services;
 
 namespace WeatherApp
 {
+    /// <summary>
+    /// Startup Class
+    /// </summary>
     class Startup: FunctionsStartup
     {
+        /// <summary>
+        /// Configure
+        /// </summary>
+        /// <param name="builder"></param>
         public override void Configure(IFunctionsHostBuilder builder)
         {
             var config = new ConfigurationBuilder()

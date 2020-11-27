@@ -13,24 +13,38 @@ using Weather.Services;
 
 namespace WeatherApp
 {
+    /// <summary>
+    /// Weather Function Class
+    /// </summary>
     public class WeatherFunction
     {
         
         private readonly IOpenWeatherMapService _weatherMapService;
         private readonly IDataService _dataService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="weatherMapService"></param>
+        /// <param name="dataService"></param>
         public WeatherFunction(IOpenWeatherMapService weatherMapService, IDataService dataService)
         {
             _weatherMapService = weatherMapService;
             _dataService = dataService;
         }
 
+        /// <summary>
+        /// Fetch from Open Weather map and store to SQL Database
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="log"></param>
+        /// <returns></returns>
         [FunctionName("write")]
         public async Task<IActionResult> FetchAndStore(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("Starting write function...");
+            log.LogInformation($"{nameof(FetchAndStore)} - Starting write function...");
 
             // Read request 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
@@ -73,6 +87,12 @@ namespace WeatherApp
             return new OkObjectResult(response);
         }
 
+        /// <summary>
+        /// Query sql database
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="log"></param>
+        /// <returns></returns>
         [FunctionName("read")]
         public async Task<IActionResult> Read(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
@@ -84,6 +104,11 @@ namespace WeatherApp
             return new OkObjectResult(response);
         }
 
+        /// <summary>
+        /// Convertion from Wind Degree to Direction
+        /// </summary>
+        /// <param name="deg"></param>
+        /// <returns></returns>
         private string DegreeToDirectoin(int deg)
         {
             if (deg >= 0 && deg < 45) return "N";
